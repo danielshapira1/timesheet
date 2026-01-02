@@ -38,7 +38,7 @@ function App() {
   }, [theme]);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/timesheet">
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
