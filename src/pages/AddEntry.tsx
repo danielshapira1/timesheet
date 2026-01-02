@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ChevronRight, Save, Calculator } from 'lucide-react';
+import { ChevronRight, Save, Calculator, Trash2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { useAppStore, type WorkEntry } from '../store/useAppStore';
 import { Card } from '../components/Card';
@@ -9,7 +9,7 @@ import { formatCurrency } from '../lib/utils';
 export default function AddEntry() {
     const navigate = useNavigate();
     const { id } = useParams();
-    const { addEntry, editEntry, entries, settings } = useAppStore();
+    const { addEntry, editEntry, removeEntry, entries, settings } = useAppStore();
 
     const [date, setDate] = useState(format(new Date(), 'yyyy-MM-dd'));
     const [startTime, setStartTime] = useState('09:00');
@@ -62,6 +62,15 @@ export default function AddEntry() {
         navigate('/');
     };
 
+    const handleDelete = () => {
+        if (window.confirm('האם אתה בטוח שברצונך למחוק רשומה זו?')) {
+            if (id) {
+                removeEntry(id);
+                navigate('/');
+            }
+        }
+    };
+
     return (
         <div className="h-full flex flex-col bg-white dark:bg-gray-900 max-w-md mx-auto">
             {/* Header */}
@@ -73,7 +82,18 @@ export default function AddEntry() {
                     <ChevronRight size={20} />
                 </button>
                 <h1 className="text-lg font-bold">{id ? 'עריכת רשומה' : 'הוספת רשומה'}</h1>
-                <div className="w-9"></div> {/* Spacer for center alignment */}
+
+                {id ? (
+                    <button
+                        onClick={handleDelete}
+                        className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-colors"
+                        title="מחק רשומה"
+                    >
+                        <Trash2 size={20} />
+                    </button>
+                ) : (
+                    <div className="w-9"></div>
+                )}
             </div>
 
             <form onSubmit={handleSubmit} className="flex-1 p-4 space-y-3 overflow-y-auto">

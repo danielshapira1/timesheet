@@ -76,7 +76,7 @@ export default function CalendarPage() {
                                     {/* Quick Actions overlay on hover/focus (desktop) or always accessible on mobile via specific UI gesture, but for now a simple delete button */}
                                     <button
                                         onClick={() => handleDelete(entry.id)}
-                                        className="absolute left-2 top-1/2 -translate-y-1/2 p-2 text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-white dark:bg-gray-800 rounded-full shadow-sm"
+                                        className="absolute left-2 top-1/2 -translate-y-1/2 p-2 text-red-500 bg-white dark:bg-gray-800 rounded-full shadow-sm hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors border border-gray-100 dark:border-gray-700"
                                         title="מחק"
                                     >
                                         <Trash2 size={18} />
